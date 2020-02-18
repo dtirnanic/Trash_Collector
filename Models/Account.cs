@@ -5,7 +5,15 @@ using System.Threading.Tasks;
 
 namespace TrashCollector.Models
 {
-    public class Accounts
+    public class Account
     {
+        public int Id { get; set; }
+        public string PickUpDay { get; set; }
+        public DateTime OneTimePickup { get; set; }
+        public DateTime StartDay { get; set; }
+        public DateTime EndDay { get; set; }
+        public bool IsSuspended { get; set; }
+        public double Balance { get; set; }
+
     }
 }
