@@ -81,7 +81,7 @@ namespace TrashCollector.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList(); 
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
@@ -91,6 +91,15 @@ namespace TrashCollector.Areas.Identity.Pages.Account
                     if (await _roleManager.RoleExistsAsync(Input.Role))
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
+
+                        if (Input.Role == "employee")
+                        {
+                            return RedirectToAction("Create", "Employees");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Create", "Customers");
+                        }
                     } 
                     _logger.LogInformation("User created a new account with password.");
 
