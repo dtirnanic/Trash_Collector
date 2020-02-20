@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace TrashCollector.Areas.Identity.Pages.Account
 {
@@ -60,6 +61,7 @@ namespace TrashCollector.Areas.Identity.Pages.Account
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
+
 
             returnUrl = returnUrl ?? Url.Content("~/");
 

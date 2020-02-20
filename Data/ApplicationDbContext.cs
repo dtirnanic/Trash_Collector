@@ -38,9 +38,13 @@ namespace TrashCollector.Data
                     }
                );
         }
-
+        //Need to have all tables listed as DBSet here
         public DbSet<TrashCollector.Models.Customer> Customer { get; set; }
 
         public DbSet<TrashCollector.Models.Employee> Employee { get; set; }
+
+        public DbSet<TrashCollector.Models.Address> Address { get; set; }
+
+        public DbSet<TrashCollector.Models.Account> Account { get; set; }
     }
 }

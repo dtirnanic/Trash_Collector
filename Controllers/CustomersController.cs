@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,6 +23,7 @@ namespace TrashCollector.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
+
             return View(await _context.Customer.ToListAsync());
         }
 
@@ -46,7 +48,10 @@ namespace TrashCollector.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            return View();
+            Customer customer = new Customer();
+            customer.Address = new Address();
+            customer.Account = new Account();
+            return View(customer);
         }
 
         // POST: Customers/Create
@@ -54,11 +59,15 @@ namespace TrashCollector.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AddressId,AccountId,ApplicationUser,FirstName,LastName")] Customer customer)
+        public async Task<IActionResult> Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.IdentityUserId = userID;
+                
+                
+                _context.Customer.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

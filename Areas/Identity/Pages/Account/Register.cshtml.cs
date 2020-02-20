@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -91,13 +92,15 @@ namespace TrashCollector.Areas.Identity.Pages.Account
                     if (await _roleManager.RoleExistsAsync(Input.Role))
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
-
+                        // If statement added in order send registered user to Create method for employee OR customer
                         if (Input.Role == "employee")
-                        {
+                        {    
+                            
                             return RedirectToAction("Create", "Employees");
                         }
                         else
-                        {
+                        {    
+                            
                             return RedirectToAction("Create", "Customers");
                         }
                     } 
