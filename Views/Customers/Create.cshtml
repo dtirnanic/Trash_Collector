@@ -44,7 +44,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.Account.PickUpDay" class="control-label"></label>
-                <select asp-for="@Model.Account.PickUpDay" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
+                <select asp-validation-for="Account.PickUpDay" class="text-danger" asp-items="Html.GetEnumSelectList<DayOfWeek>();"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary"/>

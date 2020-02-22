@@ -48,22 +48,15 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "406316d3-cc52-4850-8072-be8356c2df66",
-                            ConcurrencyStamp = "9fa304f7-8cad-475f-ace0-815f9f6da54a",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "9b96d5bf-ef36-4c08-baa8-f276bc3e0541",
-                            ConcurrencyStamp = "e13702de-a9fb-4e5f-88de-4257e64830b1",
+                            Id = "03bdedc6-d802-4fa7-995f-e4c592646ea6",
+                            ConcurrencyStamp = "af7d9f50-396f-45d3-88a2-d61b64845c6f",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "c55699b9-d0b1-474d-9bfa-2ab49a396072",
-                            ConcurrencyStamp = "fa790928-ace8-4656-8fca-1d6a4adbbfda",
+                            Id = "a44f82a1-8c5b-4a04-bb3d-fa2c55662a57",
+                            ConcurrencyStamp = "22eab3d3-45a3-43e7-95ab-21cd27b59f7e",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -257,8 +250,8 @@ namespace TrashCollector.Data.Migrations
                     b.Property<DateTime>("OneTimePickup")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PickUpDay")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PickUpDay")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDay")
                         .HasColumnType("datetime2");

@@ -19,7 +19,7 @@ namespace TrashCollector.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index() //Implementation added to direct user to respective controller index
         {
             if (User.Identity.IsAuthenticated)
             {

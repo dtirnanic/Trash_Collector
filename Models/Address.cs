@@ -10,6 +10,7 @@ namespace TrashCollector.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }

@@ -13,47 +13,37 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Address.StreetAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account.Balance)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address.StreetAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.Balance)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    <a asp-action="RequestOneTimePickUp" asp-route-id="@item.Id">Request Pick Up</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

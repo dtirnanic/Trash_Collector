@@ -23,8 +23,9 @@ namespace TrashCollector.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-
-            return View(await _context.Customer.ToListAsync());
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = await _context.Customer.Include(c => c.Account).Where(x => x.IdentityUserId == userID).ToListAsync();
+            return View(customer);
         }
 
         // GET: Customers/Details/5
@@ -34,14 +35,12 @@ namespace TrashCollector.Controllers
             {
                 return NotFound();
             }
-
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = await _context.Customer.Include(c => c.Account).Include(c => c.Address).Where(x => x.IdentityUserId == userID).FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
             }
-
             return View(customer);
         }
 
@@ -122,6 +121,24 @@ namespace TrashCollector.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            return View(customer);
+        }
+
+        public async Task<IActionResult> RequestOneTimePickUp(int? id)
+        {
+
+            var customer = await _context.Customer.Include(c => c.Account).SingleOrDefaultAsync(a => a.Id == id);
+            return View(customer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RequestOneTimePickUp(Customer customer)
+        {
+     
+               _context.Update(customer);
+               await _context.SaveChangesAsync();
+            
             return View(customer);
         }
 
