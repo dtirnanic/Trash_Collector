@@ -102,7 +102,7 @@ namespace TrashCollector.Controllers
                 return NotFound();
             }
             customer.Account.OneTimePickup = customer.Account.OneTimePickup.Date;
-
+            customer.Account.IsSuspended = IsSuspended(customer.Account.StartDay,customer.Account.EndDay);
             if (ModelState.IsValid)
             {
                 try
@@ -162,5 +162,20 @@ namespace TrashCollector.Controllers
         {
             return _context.Customer.Any(e => e.Id == id);
         }
+
+        private bool IsSuspended(DateTime start, DateTime end)
+        {
+            var current = DateTime.Now;
+            if(current > start && current < end)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
+
 }
