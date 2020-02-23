@@ -93,7 +93,7 @@ namespace TrashCollector.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
                         // If statement added in order send registered user to Create method for employee OR customer
-                        if (Input.Role == "employee")
+                        if (Input.Role == "Employee")
                         {
                             await _signInManager.SignInAsync(user, isPersistent: false);
                             return RedirectToAction("Create", "Employees");

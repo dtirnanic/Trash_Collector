@@ -80,8 +80,9 @@ namespace TrashCollector.Controllers
             {
                 return NotFound();
             }
+         
+            var customer = await _context.Customer.Include(a => a.Account).Include(a => a.Address).FirstOrDefaultAsync(b => b.Id == id);
 
-            var customer = await _context.Customer.FindAsync(id);
             if (customer == null)
             {
                 return NotFound();
@@ -100,11 +101,14 @@ namespace TrashCollector.Controllers
             {
                 return NotFound();
             }
+            customer.Account.OneTimePickup = customer.Account.OneTimePickup.Date;
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    customer.IdentityUserId = userID;
                     _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
@@ -124,23 +128,6 @@ namespace TrashCollector.Controllers
             return View(customer);
         }
 
-        public async Task<IActionResult> RequestOneTimePickUp(int? id)
-        {
-
-            var customer = await _context.Customer.Include(c => c.Account).SingleOrDefaultAsync(a => a.Id == id);
-            return View(customer);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RequestOneTimePickUp(Customer customer)
-        {
-     
-               _context.Update(customer);
-               await _context.SaveChangesAsync();
-            
-            return View(customer);
-        }
 
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)

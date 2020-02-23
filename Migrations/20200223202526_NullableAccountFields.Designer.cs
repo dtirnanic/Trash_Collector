@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
-namespace TrashCollector.Data.Migrations
+namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200223202526_NullableAccountFields")]
+    partial class NullableAccountFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "03bdedc6-d802-4fa7-995f-e4c592646ea6",
-                            ConcurrencyStamp = "af7d9f50-396f-45d3-88a2-d61b64845c6f",
+                            Id = "06ed21fb-a521-47e0-b598-b09f0d8353da",
+                            ConcurrencyStamp = "aa4ca2c4-405b-470b-b4c8-61e27b5c0087",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "a44f82a1-8c5b-4a04-bb3d-fa2c55662a57",
-                            ConcurrencyStamp = "22eab3d3-45a3-43e7-95ab-21cd27b59f7e",
+                            Id = "000d1493-d4c5-48d2-a761-0c78c1b83782",
+                            ConcurrencyStamp = "2a688194-784b-44a1-aeb9-5ea11554e4b4",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -238,22 +240,22 @@ namespace TrashCollector.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Balance")
+                    b.Property<double?>("Balance")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("EndDay")
+                    b.Property<DateTime?>("EndDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsSuspended")
+                    b.Property<bool?>("IsSuspended")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("OneTimePickup")
+                    b.Property<DateTime?>("OneTimePickup")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PickUpDay")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDay")
+                    b.Property<DateTime?>("StartDay")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

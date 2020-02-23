@@ -20,14 +20,16 @@ namespace TrashCollector.Controllers
             _context = context;
         }
 
-        // GET: Employees
-        public async Task<IActionResult> Index()
+        // GET: Employees                           //Need to know how to compare today to customer pick up day
+        public async Task<IActionResult> Index() //list for todays customers AND RequestOneTimePickUp OR IsSuspended
         {
-            return View(await _context.Employee.ToListAsync());
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employee.Where(a => a.IdentityUserId == userID).FirstOrDefault();
+            return View(await _context.Customer.Include(c => c.Account.PickUpDay == DateTime.Now.DayOfWeek || c.Account.OneTimePickup == DateTime.Today).Where(c => c.Address.Zip == employee.ZipCode).ToListAsync());
         }
 
-        // GET: Employees/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Employees/Details/5 
+        public async Task<IActionResult> Details(int? id) 
         {
             if (id == null)
             {

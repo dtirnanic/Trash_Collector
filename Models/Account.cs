@@ -10,12 +10,12 @@ namespace TrashCollector.Models
     {
         [Key]
         public int Id { get; set; }
-        public DayOfWeek PickUpDay { get; set; }
-        public DateTime OneTimePickup { get; set; }
-        public DateTime StartDay { get; set; }
-        public DateTime EndDay { get; set; }
-        public bool IsSuspended { get; set; }
-        public double Balance { get; set; }
+        public DayOfWeek PickUpDay { get; set; } = DayOfWeek.Monday;
+        public DateTime OneTimePickup { get; set; } = DateTime.Now;
+        public DateTime StartDay { get; set; } = DateTime.Now;
+        public DateTime EndDay { get; set; } = DateTime.Now;
+        public bool IsSuspended { get; set; } = false;
+        public double Balance { get; set; } = 0;
 
     }
 }
