@@ -25,7 +25,10 @@ namespace TrashCollector.Controllers
         {
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employee.Where(a => a.IdentityUserId == userID).FirstOrDefault();
-            return View(await _context.Customer.Include(c => c.Account.PickUpDay == DateTime.Now.DayOfWeek || c.Account.OneTimePickup == DateTime.Today).Where(c => c.Address.Zip == employee.ZipCode).ToListAsync());
+
+            var allCustomers = await _context.Customer.Include(c => c.Account).Include(c => c.Address).ToListAsync();
+            var filteredCustomers = allCustomers.Where(c => (c.Account.PickUpDay == DateTime.Now.DayOfWeek || c.Account.OneTimePickup == DateTime.Today) && c.Address.Zip == employee.ZipCode).ToList();
+            return View(filteredCustomers);
         }
 
         // GET: Employees/Details/5 
