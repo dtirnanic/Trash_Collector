@@ -29,6 +29,7 @@ namespace TrashCollector.Controllers
 
             var allCustomers = await _context.Customer.Include(c => c.Account).Include(c => c.Address).ToListAsync();
             var filteredCustomers = allCustomers.Where(c => (c.Account.PickUpDay == DateTime.Now.DayOfWeek || c.Account.OneTimePickup == DateTime.Today) && c.Address.Zip == employee.ZipCode).ToList();
+    
             return View(filteredCustomers);
         }
 
@@ -161,8 +162,11 @@ namespace TrashCollector.Controllers
         {
             return _context.Employee.Any(e => e.Id == id);
         }
-        public async Task<IActionResult> FilterCustomers(DayOfWeek day)
+        public async Task<IActionResult> FilterCustomers()
         {
+            //Get the filter from http request 
+            var day = (DayOfWeek)int.Parse(this.HttpContext.Request.Form["dayOfWeekFilter"].ToString());
+
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employee.Where(a => a.IdentityUserId == userID).FirstOrDefault();
 
