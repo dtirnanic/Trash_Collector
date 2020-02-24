@@ -14,6 +14,7 @@ namespace TrashCollector.Controllers
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private object employee;
 
         public EmployeesController(ApplicationDbContext context)
         {
@@ -159,6 +160,16 @@ namespace TrashCollector.Controllers
         private bool EmployeeExists(int id)
         {
             return _context.Employee.Any(e => e.Id == id);
+        }
+        public async Task<IActionResult> FilterCustomers(DayOfWeek day)
+        {
+            var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employee.Where(a => a.IdentityUserId == userID).FirstOrDefault();
+
+            var allCustomers = await _context.Customer.Include(c => c.Account).Include(c => c.Address).ToListAsync();
+            var filteredCustomers = allCustomers.Where(c => (c.Account.PickUpDay == day || c.Account.OneTimePickup.DayOfWeek == day) && c.Address.Zip == employee.ZipCode).ToList();
+
+            return View(filteredCustomers);
         }
     }
 }
