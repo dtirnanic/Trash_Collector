@@ -21,20 +21,20 @@ namespace TrashCollector.Controllers
             _context = context;
         }
 
-        // GET: Employees                           //Need to know how to compare today to customer pick up day
-        public async Task<IActionResult> Index() //list for todays customers AND RequestOneTimePickUp OR IsSuspended
+        // GET: Employees                           
+        public async Task<IActionResult> Index()
         {
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employee.Where(a => a.IdentityUserId == userID).FirstOrDefault();
 
             var allCustomers = await _context.Customer.Include(c => c.Account).Include(c => c.Address).ToListAsync();
             var filteredCustomers = allCustomers.Where(c => (c.Account.PickUpDay == DateTime.Now.DayOfWeek || c.Account.OneTimePickup == DateTime.Today) && c.Address.Zip == employee.ZipCode).ToList();
-    
+
             return View(filteredCustomers);
         }
 
         // GET: Employees/Details/5 
-        public async Task<IActionResult> Details(int? id) 
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -175,5 +175,6 @@ namespace TrashCollector.Controllers
 
             return View(filteredCustomers);
         }
+  
     }
 }

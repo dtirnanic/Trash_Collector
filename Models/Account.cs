@@ -15,6 +15,7 @@ namespace TrashCollector.Models
         public DateTime StartDay { get; set; } = DateTime.Now;
         public DateTime EndDay { get; set; } = DateTime.Now;
         public bool IsSuspended { get; set; } = false;
+        public bool IsPickedUp { get; set; } = false;
         public double Balance { get; set; } = 0;
 
     }

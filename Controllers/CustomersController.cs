@@ -176,6 +176,17 @@ namespace TrashCollector.Controllers
             }
 
         }
+        [HttpPost]
+        public void PickupConfirmed(int Id)
+        {
+            var customer = _context.Customer.Where(a => a.Id == Id).FirstOrDefault();
+
+            customer.Account.Balance = customer.Account.Balance + 10;
+            customer.Account.IsPickedUp = true;
+
+        }
+
+
     }
 
 }
