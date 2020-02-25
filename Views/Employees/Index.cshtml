@@ -30,6 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Address.Zip)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account.IsPickedUp)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -46,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Address.Zip)
             </td>
             <td>
-                <a asp-action="PickupConfirmed" asp-route-id="@item.Id">Customer Pickup</a> 
+                <a asp-action="PickupConfirmed" asp-route-accountid="@item.AccountId">Confirm Pickup</a> 
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

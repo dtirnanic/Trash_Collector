@@ -25,7 +25,8 @@ namespace TrashCollector.Controllers
         {
             var userID = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = await _context.Customer.Include(c => c.Account).Where(x => x.IdentityUserId == userID).ToListAsync();
-            return View(customer);
+
+            return View(customer );
         }
 
         // GET: Customers/Details/5
@@ -176,16 +177,6 @@ namespace TrashCollector.Controllers
             }
 
         }
-        [HttpPost]
-        public void PickupConfirmed(int Id)
-        {
-            var customer = _context.Customer.Where(a => a.Id == Id).FirstOrDefault();
-
-            customer.Account.Balance = customer.Account.Balance + 10;
-            customer.Account.IsPickedUp = true;
-
-        }
-
 
     }
 

@@ -28,15 +28,19 @@ namespace TrashCollector.Controllers
                 {
                    return RedirectToAction("Index","Customers");
                 }
-                else 
+                else if(User.IsInRole("Employee"))
                 {
                     return RedirectToAction("Index","Employees");
-                }       
+                }    
+                else
+                {
+                    return View("Index");
+                }
             }
             else
             {
-                return View();
-            } 
+                return View("Index");
+            }
         } 
 
         public IActionResult Privacy()

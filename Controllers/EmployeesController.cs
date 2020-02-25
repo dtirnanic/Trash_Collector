@@ -86,7 +86,8 @@ namespace TrashCollector.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Customer.FindAsync(id);
+                
             if (employee == null)
             {
                 return NotFound();
@@ -175,6 +176,16 @@ namespace TrashCollector.Controllers
 
             return View(filteredCustomers);
         }
-  
+
+       
+        public IActionResult PickupConfirmed(int accountid)
+        {
+            var account = _context.Account.Where(a => a.Id == accountid).FirstOrDefault();
+
+            account.Balance = account.Balance + 10;
+            account.IsPickedUp = true;
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
